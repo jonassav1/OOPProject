@@ -13,15 +13,15 @@ class Questions:
             print("2. Free-form text questions!")
             print("3. Go back to main menu.")
             try:
-                optionQ = int(input("\nChoose type of the question or go back to main menu: "))
-                if optionQ == 1:
+                option_q = int(input("\nChoose type of the question or go back to main menu: "))
+                if option_q == 1:
                     self.add_quiz_questions()
-                elif optionQ == 2:
+                elif option_q == 2:
                     self.add_free_from_questions()
-                elif optionQ == 3:
+                elif option_q == 3:
                     break
                 else:
-                    print("\nYou must enter a number between 1 and 3") 
+                    print("\nYou must enter a number between 1 and 3")
             except ValueError:
                 print("Invalid input")
 
@@ -41,7 +41,7 @@ class Questions:
                         break
                     else:
                         print("\nYou must select correct asnwer from your inputs!")
-                        print(f"{answer1} as 1 \n {answer2} as 2 \n {answer3} as 3 \n {answer4} as 4 ")
+                        print(f"{answer1} as 1\n{answer2} as 2\n{answer3} as 3\n{answer4} as 4 ")
                 except ValueError:
                     print("\nInvalid input")
             self.quiz_questions.append({
