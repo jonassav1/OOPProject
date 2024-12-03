@@ -10,7 +10,7 @@ def main():
         print("3. Disable/enable questions. ")
         print("4. Practice mode. ")
         print("5. Test mode. ")
-        print("6. Exit.")
+        print("6. Exit. ")
         try:
             option = int(input("\nChoose your mode: "))
             if option == 1:
