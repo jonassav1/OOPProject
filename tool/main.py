@@ -1,19 +1,21 @@
+from questions import Questions
 class Quiz():
     ...
 
 def main():
     quiz = Quiz()
     while True:
-        print("1. Adding questions. ")
+        print("\n\n1. Adding questions. ")
         print("2. Statistics viewing. ")
         print("3. Disable/enable questions. ")
         print("4. Practice mode. ")
         print("5. Test mode. ")
         print("6. Exit.")
         try:
-            option = int(input("Choose your mode: "))
+            option = int(input("\nChoose your mode: "))
             if option == 1:
-                print("1")
+                questions = Questions()
+                questions.add_questions()
             elif option == 2:
                 print("2")
             elif option == 3:
