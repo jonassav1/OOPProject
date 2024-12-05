@@ -1,4 +1,6 @@
 from questions import Questions
+from toggle import Toggle
+
 
 def main():
     while True:
@@ -17,7 +19,8 @@ def main():
                 statistics = Questions()
                 statistics.view_statistics()
             elif option == 3:
-                print("3")
+                toggle = Toggle()
+                toggle.select_file()
             elif option == 4:
                 print("4")
             elif option == 5:
