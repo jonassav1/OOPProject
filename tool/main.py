@@ -1,9 +1,6 @@
 from questions import Questions
-class Quiz():
-    ...
 
 def main():
-    quiz = Quiz()
     while True:
         print("\n\n1. Adding questions. ")
         print("2. Statistics viewing. ")
@@ -17,7 +14,8 @@ def main():
                 questions = Questions()
                 questions.add_questions()
             elif option == 2:
-                print("2")
+                statistics = Questions()
+                statistics.view_statistics()
             elif option == 3:
                 print("3")
             elif option == 4:
