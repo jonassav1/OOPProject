@@ -9,6 +9,7 @@ class Practice:
     def get_questions(self, quiz_file ="qquestion.csv",ff_file="ffqquestions.csv"):
         with open(quiz_file, "r") as f:
             reader =csv.reader(f)
+            next(reader)
             for row in reader:
                 question_id = row [0]
                 active = row[1]
@@ -17,6 +18,7 @@ class Practice:
                 answers = row[4:8]
                 times_shown = int(row[8])
                 times_answered = int(row[9])
+                incorrect_answer = int(row[10])
                 if active == "True":
                     self.quiz_questions.append({
                         "ID" : question_id,
@@ -25,11 +27,13 @@ class Practice:
                         "question" : q_text,
                         "answers" : answers,
                         "times_shown" : times_shown,
-                        "times_answered" : times_answered
+                        "times_answered" : times_answered,
+                        "incorrect_answers" : incorrect_answer
                     })
 
         with open(ff_file, "r") as f:
             reader =csv.reader(f)
+            next(reader)
             for row in reader:
                 question_id = row [0]
                 active = row[1]
@@ -37,6 +41,7 @@ class Practice:
                 q_text = row[3]
                 times_shown = int(row[4])
                 times_answered = int(row[5])
+                incorrect_answer = int(row[6])
                 if active == "True":
                     self.ff_questions.append({
                         "ID" : question_id,
@@ -44,9 +49,11 @@ class Practice:
                         "answer" : answer,
                         "question" : q_text,
                         "times_shown" : times_shown,
-                        "times_answered" : times_answered
+                        "times_answered" : times_answered,
+                        "incorrect_answers" : incorrect_answer
                     })
     def practice_mode(self):
+
         self.get_questions()  
         all_questions = self.quiz_questions + self.ff_questions  
         if not all_questions:
@@ -54,13 +61,17 @@ class Practice:
             return
 
         while True:
+            weights_for_q = [q["incorrect_answers"] +1 for q in all_questions]
+            question_data = random.choices(all_questions, weights=weights_for_q, k=1)[0]
             question_data = random.choice(all_questions)
             self.print_question(question_data)
             question_data["times_shown"] += 1
             user_answer = self.get_answer(question_data)
             is_correct = self.check_answer(question_data, user_answer)
-            if is_correct is not None:
+            if is_correct:
                 question_data["times_answered"] += 1
+            else:
+                question_data["incorrect_answers"] +=1
             continue_practice = input("\nDo you want to continue yes or no?: ").strip().lower()
             if continue_practice != 'yes':
                 break
@@ -112,7 +123,7 @@ class Practice:
 
         with open(quiz_file, "w", newline="") as f:
             writer = csv.writer(f)
-            writer.writerow(["ID", "Active", "Correct_Answer", "Question", "Answer1", "Answer2", "Answer3", "Answer4", "Times_Shown", "Times_Answered"])
+            writer.writerow(["ID", "Active", "Correct_Answer", "Question", "Answer1", "Answer2", "Answer3", "Answer4", "Times_Shown", "Times_Answered", "Incorrect_Answers"])
             for question in self.quiz_questions:
                 writer.writerow([
                     question["ID"],
@@ -121,12 +132,13 @@ class Practice:
                     question["question"],
                     *question["answers"],
                     question["times_shown"],
-                    question["times_answered"]
+                    question["times_answered"],
+                    question["incorrect_answers"]
                 ])
 
         with open(ff_file, "w", newline="") as f:
             writer = csv.writer(f)
-            writer.writerow(["ID", "Active", "Answer", "Question", "Times_Shown", "Times_Answered"])
+            writer.writerow(["ID", "Active", "Answer", "Question", "Times_Shown", "Times_Answered", "Incorrect_Answers"])
             for question in self.ff_questions:
                 writer.writerow([
                     question["ID"],
@@ -134,5 +146,6 @@ class Practice:
                     question["answer"],
                     question["question"],
                     question["times_shown"],
-                    question["times_answered"]
+                    question["times_answered"],
+                    question["incorrect_answers"]
                 ])

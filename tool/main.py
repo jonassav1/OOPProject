@@ -12,8 +12,10 @@ def main():
         print("4. Practice mode. ")
         print("5. Test mode. ")
         print("6. Exit. ")
+
+        user_input = input("\nChoose your mode: ").strip()
         try:
-            option = int(input("\nChoose your mode: ").strip())
+            option = int(user_input)
             if option == 1:
                 questions = Questions()
                 questions.add_questions()
