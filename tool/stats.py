@@ -15,5 +15,12 @@ class Stats:
             reader = csv.reader(f)
             next(reader)
             for row in reader:
-                print(f"ID: {row[0]}, Active: {row[1]}, Question: {row[3]}, Answer: {row[2]}")
-                # ir kai turesiu practice moda tada pridesiu per ji du naujus data tipus i gala situ failu vienas bus counteris kiek kartu pasirode klausimas kitas kiek kartu i ji atsake procentaliai
+                asked = int(row[-3])
+                answered = int(row[-2])
+                incorrect = int(row[-1])
+                correct_answers = answered - incorrect
+                if correct_answers > 0:
+                    precentage = (correct_answers / answered) * 100
+                else: 
+                    precentage = 0 
+                print(f"ID: {row[0]}, Active: {row[1]}, Question: {row[3]}, Answer: {row[2]}, Times asked: {row[-3]}, Correctly answered rate: {precentage}%")

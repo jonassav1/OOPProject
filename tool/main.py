@@ -3,7 +3,6 @@ from toggle import Toggle
 from stats import Stats
 from practice_mode import Practice
 
-
 def main():
     while True:
         print("\n\n1. Adding questions. ")
@@ -29,7 +28,10 @@ def main():
                 practice = Practice()
                 practice.practice_mode()
             elif option == 5:
-                print("5")
+                test = Practice()
+                test.get_inactive()
+
+                test.test_mode()
             elif option == 6:
                 break
             else: 

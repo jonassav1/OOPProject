@@ -1,14 +1,64 @@
 import random
 import csv
+from datetime import datetime
 
 class Practice:
     def __init__(self):
         self.quiz_questions = []
         self.ff_questions = []
+        self.qq_inactive = []
+        self.ffq_inactive = []
+
+    def get_inactive(self, quiz_file ="qquestion.csv",ff_file="ffqquestions.csv"):
+        with open(quiz_file, "r") as f:
+            reader = csv.reader(f)
+            next(reader)
+            for row in reader:
+                question_id = row [0]
+                active = row[1]
+                correct_answer_is = row[2]
+                q_text = row[3]
+                answers = row[4:8]
+                times_shown = int(row[8])
+                times_answered = int(row[9])
+                incorrect_answer = int(row[10])
+                if active == "False":
+                    self.qq_inactive.append({
+                        "ID" : question_id,
+                        "active" : False,
+                        "correct_answer" : correct_answer_is,
+                        "question" : q_text,
+                        "answers" : answers,
+                        "times_shown" : times_shown,
+                        "times_answered" : times_answered,
+                        "incorrect_answers" : incorrect_answer
+                    })
+
+        with open(ff_file, "r") as f:
+            reader =csv.reader(f)
+            next(reader)
+            for row in reader:
+                question_id = row [0]
+                active = row[1]
+                answer = row[2]
+                q_text = row[3]
+                times_shown = int(row[4])
+                times_answered = int(row[5])
+                incorrect_answer = int(row[6])
+                if active == "False":
+                    self.ffq_inactive.append({
+                        "ID" : question_id,
+                        "active" : False,
+                        "answer" : answer,
+                        "question" : q_text,
+                        "times_shown" : times_shown,
+                        "times_answered" : times_answered,
+                        "incorrect_answers" : incorrect_answer
+                    })
 
     def get_questions(self, quiz_file ="qquestion.csv",ff_file="ffqquestions.csv"):
         with open(quiz_file, "r") as f:
-            reader =csv.reader(f)
+            reader = csv.reader(f)
             next(reader)
             for row in reader:
                 question_id = row [0]
@@ -61,7 +111,7 @@ class Practice:
             return
 
         while True:
-            weights_for_q = [q["incorrect_answers"] +1 for q in all_questions]
+            weights_for_q = [q["incorrect_answers"] + 1 for q in all_questions]
             question_data = random.choices(all_questions, weights=weights_for_q, k=1)[0]
             question_data = random.choice(all_questions)
             self.print_question(question_data)
@@ -73,7 +123,9 @@ class Practice:
             else:
                 question_data["incorrect_answers"] +=1
             continue_practice = input("\nDo you want to continue yes or no?: ").strip().lower()
-            if continue_practice != 'yes':
+            if continue_practice == 'yes':
+                continue
+            else:
                 break
         self.save_progress()
 
@@ -149,3 +201,61 @@ class Practice:
                     question["times_answered"],
                     question["incorrect_answers"]
                 ])
+
+        with open(quiz_file, "a", newline="") as f:
+            writer = csv.writer(f)
+            for question in self.qq_inactive:  
+                writer.writerow([
+                    question["ID"],
+                    "False" if question["active"] else "True",
+                    question["correct_answer"],
+                    question["question"],
+                    *question["answers"],
+                    question["times_shown"],
+                    question["times_answered"],
+                    question["incorrect_answers"]
+                ])
+
+        with open(ff_file, "a", newline="") as f:
+            writer = csv.writer(f)
+            for question in self.ffq_inactive: 
+                writer.writerow([
+                    question["ID"],
+                    "False" if question["active"] else "True",
+                    question["answer"],
+                    question["question"],
+                    question["times_shown"],
+                    question["times_answered"],
+                    question["incorrect_answers"]
+                ])
+
+    def test_mode(self):
+        self.get_questions()
+        all_questions = self.quiz_questions + self.ff_questions
+        if not all_questions:
+            print("\nThere are no questions available for practice.")
+            return
+        
+        while True: 
+            try: 
+                number_of_questions = int(input(f"Enter how many questions you want for the test? Max = {len(all_questions)}. "))
+                if 1<=number_of_questions<=len(all_questions):
+                    break
+                else:
+                    print(f"Enter a number between 1 and {len(all_questions)}")
+            except ValueError:
+                print("Invalid input you must enter a number.")
+        select_questions = random.sample(all_questions, number_of_questions)
+        score = 0 
+        for question_data in select_questions:
+            self.print_question(question_data)
+            user_answer = self.get_answer(question_data)
+            if_correct = self.check_answer(question_data, user_answer)
+            if if_correct: 
+                score += 1
+        print(f"\nTest completed! Your score was: {score}/{number_of_questions}")
+
+        now = datetime.now()
+        with open("result.txt", "a", newline="") as f:
+            f.write(f"\nScore: {score}/{number_of_questions}; Date: {now}")
+

@@ -1,4 +1,3 @@
-ID,Active,Answer,Question,Times_Shown,Times_Answered,Incorrect_Answers
 52,True,blue,what color is the sky?,1,1,0
-47,True,michael,whats the name of boss in the office tv show ?,3,2,1
-99,True,mew,what pokemon is pink and can fly ?,4,4,0
+47,False,michael,whats the name of boss in the office tv show ?,3,2,1
+99,True,mew,what pokemon is pink and can fly ?,6,6,0

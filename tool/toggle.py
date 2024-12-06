@@ -37,7 +37,7 @@ class Toggle:
 
     def select_toggle(self, file_name):
         entered_id = int(input("\nEnter ID of the question you would like to enable/disable: "))
-        optiont = input("\n would you like to enable (e) or disable (d)? ").lower().strip()
+        optiont = input("\n would you like to enable (e) or disable (d)? ").strip().lower()
         if optiont == "e":
             self.enable(file_name, entered_id)
         elif optiont == "d":

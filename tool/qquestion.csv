@@ -1,4 +1,4 @@
-ID,Active,Correct_Answer,Question,Answer1,Answer2,Answer3,Answer4,Times_Shown,Times_Answered,Incorrect_Answers
-100,True,4,whats 2+2 ?,2,1,3,4,2,2,0
-9,True,4,whats 2*2 ?,2,1,3,4,3,1,2
-98,True,12,what is 3*4 ?,11,12,13,14,4,3,1
+98,True,12,what is 3*4 ?,11,12,13,14,8,5,3
+79,False,1,hey,1,2,3,4,2,2,0
+69,False,food,whats cooking /,y,you,no,food,2,0,2
+59,True,sky,hey there mr blue ...?,sky,water,ball,people,0,0,0
