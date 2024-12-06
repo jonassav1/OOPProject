@@ -1,9 +1,4 @@
-1,koks jono suns vardas ? ,mocis,pocis,kocis,vocis,mocis
-2,Koks mano vardas? ,Jonas,Albinosas,Kajus,Majus,Jonas
-3,what color is the sky ? ,blue,red,pink,grey,blue
-4,what color is grass,green,pink,teal,purple,green
-5,What color is Garfield?,orange,blue,red,pink,orange
-6,where is valdo?,dont know,on the right,nowhere,there,dont know
-36,hey you,this is,a,34f,afrse,this is
-84,Whats cooking good looking ?,coding,nothing,gaming,watching,coding
-72,whats,one,two,the,and to the four,and to the four,False
+ID,Active,Correct_Answer,Question,Answer1,Answer2,Answer3,Answer4,Times_Shown,Times_Answered
+92,True,tuesday,what day is after monday ?,tuesday,friday,saturday,monday,1,1
+88,True,sun ,whats yellow and in the sky?,sun ,moon,lamp,plane,0,0
+69,True,4,two + two = ?,1,2,3,4,0,0

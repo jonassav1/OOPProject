@@ -1,6 +1,4 @@
-1,Whats 2+2?,4
-2,finish the lyrics : tell me why,aint nothing but a heartbreak
-3,what color is the sky ?,blue
-64,what click times,clock 
-6,what are you doing right now?,coding
-4,whats new ?,whats a scooby doo,False
+ID,Active,Answer,Question,Times_Shown,Times_Answered
+22,True,apple,whats red and grows on trees?,1,1
+34,True,red,What color is assosiated with christmass ?,0,0
+67,True,blue,what color is the water?,0,0

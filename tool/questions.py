@@ -46,17 +46,19 @@ class Questions:
         new_id = self.ids.generate_id()
         return {
             "ID" : new_id, 
+            "active" : True,
+            "correct_answer" : correct_answer_is,
             "question" : question,
             "answers" : [answer1, answer2, answer3, answer4],
-            "correct_answer" : correct_answer_is,
-            "active" : True
+            "times_shown" : 0,
+            "times_answered" : 0
         }
     
     def get_free_form_questions_input(self):
         question = input("\nEnter your free-form type question: \n").strip()
         answer = input("Enter the answer: ")
         new_id = self.ids.generate_id()
-        return {"ID": new_id, "question" : question, "answer" : answer, "active" : True}
+        return {"ID": new_id, "active" : True, "answer" : answer , "question" : question, "times_shown" : 0, "times_answered" : 0}
 
     def write_to_file(self, file_name, data, mode="a"):
         try:
@@ -72,7 +74,7 @@ class Questions:
             self.quiz_questions.append(quiz_data)
             self.write_to_file(
                 "qquestion.csv",
-                [quiz_data["ID"]] + [quiz_data["question"]] + quiz_data["answers"] + [quiz_data["correct_answer"]] + [quiz_data["active"]]
+                [quiz_data["ID"], quiz_data["active"], quiz_data["correct_answer"], quiz_data["question"]] + quiz_data["answers"] + [quiz_data["times_shown"], quiz_data["times_answered"]]
                 )
             print("Question added.")
         except Exception as e:
@@ -82,17 +84,7 @@ class Questions:
         try:
             ff_data = self.get_free_form_questions_input()
             self.free_form_questions.append(ff_data)
-            self.write_to_file("ffqquestions.csv", [ff_data["ID"], ff_data["question"], ff_data["answer"], ff_data["active"]])
+            self.write_to_file("ffqquestions.csv", [ff_data["ID"], ff_data["active"], ff_data["answer"], ff_data["question"], ff_data["times_shown"], ff_data["times_answered"]])
             print("Question added.")
         except Exception as e:
             print(f"\nUnexpected error has occured: {e}")
-
-    def view_statistics(self):
-        print("\nStatistics for the quiz questions:")
-        self.show_statistics("qquestion.csv")
-        print("\nStatistics for the free-form questions:")
-        self.show_statistics("ffqquestions.csv")
-
-
-    def show_statistics(self, file_name):
-        ...

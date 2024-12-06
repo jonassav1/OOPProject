@@ -33,7 +33,7 @@ class Toggle:
         with open(file_name, "r") as f:
             reader = csv.reader(f)
             for row in reader:
-                print(f"ID: {row[0]}, Question: {row[1]}, Answer: {row[-2]}, Status: {row[-1]} ")
+                print(f"ID: {row[0]}, Enabled: {row[1]}, Question: {row[3]}, Answer: {row[2]}, ")
 
     def select_toggle(self, file_name):
         entered_id = int(input("\nEnter ID of the question you would like to enable/disable: "))
@@ -58,7 +58,7 @@ class Toggle:
         question_found_by_id = False
         for row in data:
             if int(row[0]) == id:
-                row[-1] = "True" if status else "False"
+                row[1] = "True" if status else "False"
                 question_found_by_id = True
                 break
         if not question_found_by_id:

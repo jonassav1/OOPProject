@@ -1,5 +1,7 @@
 from questions import Questions
 from toggle import Toggle
+from stats import Stats
+from practice_mode import Practice
 
 
 def main():
@@ -11,18 +13,19 @@ def main():
         print("5. Test mode. ")
         print("6. Exit. ")
         try:
-            option = int(input("\nChoose your mode: "))
+            option = int(input("\nChoose your mode: ").strip())
             if option == 1:
                 questions = Questions()
                 questions.add_questions()
             elif option == 2:
-                statistics = Questions()
+                statistics = Stats()
                 statistics.view_statistics()
             elif option == 3:
                 toggle = Toggle()
                 toggle.select_file()
             elif option == 4:
-                print("4")
+                practice = Practice()
+                practice.practice_mode()
             elif option == 5:
                 print("5")
             elif option == 6:
