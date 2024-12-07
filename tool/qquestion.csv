@@ -1,7 +1,6 @@
-98,True,12,what is 3*4 ?,11,12,13,14,15,9,6
-59,True,sky,hey there mr blue ...?,sky,water,ball,people,1,1,0
-69,True,food,whats cooking /,y,you,no,food,3,1,2
-98,True,nothing,whats good,nothing,all,b,beta,2,2,0
-31,True,9,whats 3 times 3 ?,9,12,6,30,1,1,0
-72,True,16,4 times 4 ?,8,16,44,4,0,0,0
+98,True,12,what is 3*4 ?,11,12,13,14,21,12,9
+59,True,sky,hey there mr blue ...?,sky,water,ball,people,4,4,0
+69,False,food,whats cooking /,y,you,no,food,7,2,5
+31,True,9,whats 3 times 3 ?,9,12,6,30,3,2,1
+72,True,16,4 times 4 ?,8,16,44,4,4,4,0
 79,False,1,hey,1,2,3,4,2,2,0
