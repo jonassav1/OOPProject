@@ -15,11 +15,11 @@ class Toggle:
                 option=int(input("\nEnter number of file to select it: \n"))
                 if option == 1:
                     self.show_file("qquestion.csv")
-                    time.sleep(0.3)
+                    time.sleep(1)
                     self.select_toggle("qquestion.csv")
                 elif option == 2:
                     self.show_file("ffqquestions.csv")
-                    time.sleep(0.3)
+                    time.sleep(1)
                     self.select_toggle("ffqquestions.csv")
                 elif option == 3:
                     break

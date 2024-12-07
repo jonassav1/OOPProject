@@ -1,7 +1,7 @@
 import csv
 
 class Stats:
-    def __init__(self) -> None:
+    def __init__(self):
         pass
 
     def view_statistics(self):
@@ -14,7 +14,6 @@ class Stats:
         with open(file_name, "r") as f:
             reader = csv.reader(f)
             for row in reader:
-                asked = int(row[-3])
                 answered = int(row[-2])
                 incorrect = int(row[-1])
                 correct_answers = answered - incorrect
