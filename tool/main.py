@@ -29,8 +29,6 @@ def main():
                 practice.practice_mode()
             elif option == 5:
                 test = Practice()
-                test.get_inactive()
-
                 test.test_mode()
             elif option == 6:
                 break

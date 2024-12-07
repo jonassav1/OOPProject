@@ -6,60 +6,13 @@ class Practice:
     def __init__(self):
         self.quiz_questions = []
         self.ff_questions = []
-        self.qq_inactive = []
-        self.ffq_inactive = []
+        self.quiz_questions_inactive = []
+        self.ff_questions_inactive = []
 
-    def get_inactive(self, quiz_file ="qquestion.csv",ff_file="ffqquestions.csv"):
-        with open(quiz_file, "r") as f:
-            reader = csv.reader(f)
-            next(reader)
-            for row in reader:
-                question_id = row [0]
-                active = row[1]
-                correct_answer_is = row[2]
-                q_text = row[3]
-                answers = row[4:8]
-                times_shown = int(row[8])
-                times_answered = int(row[9])
-                incorrect_answer = int(row[10])
-                if active == "False":
-                    self.qq_inactive.append({
-                        "ID" : question_id,
-                        "active" : False,
-                        "correct_answer" : correct_answer_is,
-                        "question" : q_text,
-                        "answers" : answers,
-                        "times_shown" : times_shown,
-                        "times_answered" : times_answered,
-                        "incorrect_answers" : incorrect_answer
-                    })
-
-        with open(ff_file, "r") as f:
-            reader =csv.reader(f)
-            next(reader)
-            for row in reader:
-                question_id = row [0]
-                active = row[1]
-                answer = row[2]
-                q_text = row[3]
-                times_shown = int(row[4])
-                times_answered = int(row[5])
-                incorrect_answer = int(row[6])
-                if active == "False":
-                    self.ffq_inactive.append({
-                        "ID" : question_id,
-                        "active" : False,
-                        "answer" : answer,
-                        "question" : q_text,
-                        "times_shown" : times_shown,
-                        "times_answered" : times_answered,
-                        "incorrect_answers" : incorrect_answer
-                    })
 
     def get_questions(self, quiz_file ="qquestion.csv",ff_file="ffqquestions.csv"):
         with open(quiz_file, "r") as f:
             reader = csv.reader(f)
-            next(reader)
             for row in reader:
                 question_id = row [0]
                 active = row[1]
@@ -80,10 +33,20 @@ class Practice:
                         "times_answered" : times_answered,
                         "incorrect_answers" : incorrect_answer
                     })
+                else:
+                    self.quiz_questions_inactive.append({
+                        "ID" : question_id,
+                        "active" : False,
+                        "correct_answer" : correct_answer_is,
+                        "question" : q_text,
+                        "answers" : answers,
+                        "times_shown" : times_shown,
+                        "times_answered" : times_answered,
+                        "incorrect_answers" : incorrect_answer
+                    })
 
         with open(ff_file, "r") as f:
             reader =csv.reader(f)
-            next(reader)
             for row in reader:
                 question_id = row [0]
                 active = row[1]
@@ -102,6 +65,18 @@ class Practice:
                         "times_answered" : times_answered,
                         "incorrect_answers" : incorrect_answer
                     })
+                else:
+                    self.ff_questions_inactive.append({
+                        "ID" : question_id,
+                        "active" : False,
+                        "correct_answer" : correct_answer_is,
+                        "question" : q_text,
+                        "answers" : answer,
+                        "times_shown" : times_shown,
+                        "times_answered" : times_answered,
+                        "incorrect_answers" : incorrect_answer
+                    })
+
     def practice_mode(self):
 
         self.get_questions()  
@@ -175,7 +150,6 @@ class Practice:
 
         with open(quiz_file, "w", newline="") as f:
             writer = csv.writer(f)
-            writer.writerow(["ID", "Active", "Correct_Answer", "Question", "Answer1", "Answer2", "Answer3", "Answer4", "Times_Shown", "Times_Answered", "Incorrect_Answers"])
             for question in self.quiz_questions:
                 writer.writerow([
                     question["ID"],
@@ -190,7 +164,6 @@ class Practice:
 
         with open(ff_file, "w", newline="") as f:
             writer = csv.writer(f)
-            writer.writerow(["ID", "Active", "Answer", "Question", "Times_Shown", "Times_Answered", "Incorrect_Answers"])
             for question in self.ff_questions:
                 writer.writerow([
                     question["ID"],
@@ -204,10 +177,10 @@ class Practice:
 
         with open(quiz_file, "a", newline="") as f:
             writer = csv.writer(f)
-            for question in self.qq_inactive:  
+            for question in self.quiz_questions_inactive:
                 writer.writerow([
                     question["ID"],
-                    "False" if question["active"] else "True",
+                    "False", 
                     question["correct_answer"],
                     question["question"],
                     *question["answers"],
@@ -215,14 +188,14 @@ class Practice:
                     question["times_answered"],
                     question["incorrect_answers"]
                 ])
-
+        
         with open(ff_file, "a", newline="") as f:
             writer = csv.writer(f)
-            for question in self.ffq_inactive: 
+            for question in self.ff_questions_inactive:
                 writer.writerow([
                     question["ID"],
-                    "False" if question["active"] else "True",
-                    question["answer"],
+                    "False", 
+                    question["answer"] if "answer" in question else "",
                     question["question"],
                     question["times_shown"],
                     question["times_answered"],
@@ -231,6 +204,8 @@ class Practice:
 
     def test_mode(self):
         self.get_questions()
+        print(f"{self.quiz_questions}")
+        print(f"{self.ff_questions}")
         all_questions = self.quiz_questions + self.ff_questions
         if not all_questions:
             print("\nThere are no questions available for practice.")

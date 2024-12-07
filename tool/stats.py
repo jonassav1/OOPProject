@@ -13,7 +13,6 @@ class Stats:
     def show_statistics(self, file_name):
         with open(file_name, "r") as f:
             reader = csv.reader(f)
-            next(reader)
             for row in reader:
                 asked = int(row[-3])
                 answered = int(row[-2])
