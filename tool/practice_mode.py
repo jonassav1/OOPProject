@@ -70,7 +70,7 @@ class Practice:
                         "active" : False,
                         "correct_answer" : correct_answer_is,
                         "question" : q_text,
-                        "answers" : answer,
+                        "answer" : answer,
                         "times_shown" : times_shown,
                         "times_answered" : times_answered,
                         "incorrect_answers" : incorrect_answer
@@ -87,7 +87,6 @@ class Practice:
         while True:
             weights_for_q = [q["incorrect_answers"] + 1 for q in all_questions]
             question_data = random.choices(all_questions, weights=weights_for_q, k=1)[0]
-            question_data = random.choice(all_questions)
             self.print_question(question_data)
             question_data["times_shown"] += 1
             user_answer = self.get_answer(question_data)
@@ -194,7 +193,7 @@ class Practice:
                 writer.writerow([
                     question["ID"],
                     "False", 
-                    question["answer"] if "answer" in question else "",
+                    question["answer"],
                     question["question"],
                     question["times_shown"],
                     question["times_answered"],

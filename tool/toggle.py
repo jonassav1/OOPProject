@@ -37,6 +37,14 @@ class Toggle:
 
     def select_toggle(self, file_name):
         entered_id = int(input("\nEnter ID of the question you would like to enable/disable: "))
+        with open(file_name, "r", newline="") as f:
+            reader =csv.reader(f)
+            id_in_file = []
+            for row in reader:
+                id_in_file.append(row[0])
+        if entered_id not in id_in_file:
+            print("\nID you enter doesnt exist.")
+            return
         optiont = input("\n would you like to enable (e) or disable (d)? ").strip().lower()
         if optiont == "e":
             self.enable(file_name, entered_id)
